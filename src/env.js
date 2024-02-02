@@ -7,16 +7,33 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z
-      .string()
-      .url()
-      .refine(
-        (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
-        "You forgot to change the default URL"
-      ),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    NX_DAEMON: z.string().optional(),
+    POSTGRES_DATABASE: z.string(),
+    POSTGRES_HOST: z.string(),
+    POSTGRES_PASSWORD: z.string(),
+    POSTGRES_PRISMA_URL: z.string().url(),
+    POSTGRES_URL: z.string().url(),
+    POSTGRES_URL_NON_POOLING: z.string(),
+    POSTGRES_USER: z.string(),
+    TURBO_REMOTE_ONLY: z.string().optional(),
+    TURBO_RUN_SUMMARY: z.string().optional(),
+    VERCEL: z.string(),
+    VERCEL_ENV: z.string(),
+    VERCEL_GIT_COMMIT_AUTHOR_LOGIN: z.string().optional(),
+    VERCEL_GIT_COMMIT_AUTHOR_NAME: z.string().optional(),
+    VERCEL_GIT_COMMIT_MESSAGE: z.string().optional(),
+    VERCEL_GIT_COMMIT_REF: z.string().optional(),
+    VERCEL_GIT_COMMIT_SHA: z.string().optional(),
+    VERCEL_GIT_PREVIOUS_SHA: z.string().optional(),
+    VERCEL_GIT_PROVIDER: z.string().optional(),
+    VERCEL_GIT_PULL_REQUEST_ID: z.string().optional(),
+    VERCEL_GIT_REPO_ID: z.string().optional(),
+    VERCEL_GIT_REPO_OWNER: z.string().optional(),
+    VERCEL_GIT_REPO_SLUG: z.string().optional(),
+    VERCEL_URL: z.string().optional(),
   },
 
   /**
@@ -33,8 +50,31 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    NX_DAEMON: process.env.NX_DAEMON,
+    POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
+    POSTGRES_HOST: process.env.POSTGRES_HOST,
+    POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+    POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
+    POSTGRES_URL: process.env.POSTGRES_URL,
+    POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
+    POSTGRES_USER: process.env.POSTGRES_USER,
+    TURBO_REMOTE_ONLY: process.env.TURBO_REMOTE_ONLY,
+    TURBO_RUN_SUMMARY: process.env.TURBO_RUN_SUMMARY,
+    VERCEL: process.env.VERCEL,
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    VERCEL_GIT_COMMIT_AUTHOR_LOGIN: process.env.VERCEL_GIT_COMMIT_AUTHOR_LOGIN,
+    VERCEL_GIT_COMMIT_AUTHOR_NAME: process.env.VERCEL_GIT_COMMIT_AUTHOR_NAME,
+    VERCEL_GIT_COMMIT_MESSAGE: process.env.VERCEL_GIT_COMMIT_MESSAGE,
+    VERCEL_GIT_COMMIT_REF: process.env.VERCEL_GIT_COMMIT_REF,
+    VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA,
+    VERCEL_GIT_PREVIOUS_SHA: process.env.VERCEL_GIT_PREVIOUS_SHA,
+    VERCEL_GIT_PROVIDER: process.env.VERCEL_GIT_PROVIDER,
+    VERCEL_GIT_PULL_REQUEST_ID: process.env.VERCEL_GIT_PULL_REQUEST_ID,
+    VERCEL_GIT_REPO_ID: process.env.VERCEL_GIT_REPO_ID,
+    VERCEL_GIT_REPO_OWNER: process.env.VERCEL_GIT_REPO_OWNER,
+    VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG,
+    VERCEL_URL: process.env.VERCEL_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
