@@ -3,6 +3,9 @@
     "WillLuke.nextjs.hasPrompted": true,
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "cSpell.words": [
-        "nextjs"
+        "nextjs",
+        "tailwindcss",
+        "trpc",
+        "TRPC"
     ]
 }
