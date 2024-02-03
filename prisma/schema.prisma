@@ -11,11 +11,77 @@ datasource db {
     directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
+enum DiscountsType {
+    FIXED_AMOUNTS
+    PERCENT
+}
+
+model Address {
+    id String @id @default(uuid())
+
+    line1   String
+    line2   String?
+    city    String
+    state   String
+    zip     String
+    country String
+
+    Client Client?
+}
+
+model Client {
+    id String @id @default(uuid())
+
+    name  String
+    email String
+    phone Int
+
+    receipts  Receipt[]
+    address   Address   @relation(fields: [addressId], references: [id])
+    addressId String    @unique
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    @@index([name])
+    @@index([name, phone, email])
+}
+
+model Receipt {
+    id String @id @default(uuid())
+
+    clientId String
+    client   Client @relation(fields: [clientId], references: [id])
+
+    items Items[]
+
+    notes         String
+    discount      Float
+    discount_type DiscountsType
+    taxes         Float
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum ItemCategory {
+    ELECTRICIAN
+    PAINTER
+    PLUMBER
+    ROOFING
+    LANDSCAPING
+}
+
+model Items {
+    id String @id @default(uuid())
+
+    receipt   Receipt? @relation(fields: [receiptId], references: [id])
+    receiptId String?
+
+    category    ItemCategory
+    quantity    Int
+    description String
+
+    cost         Float
+    discount     Float
+    discountType DiscountsType
 }
