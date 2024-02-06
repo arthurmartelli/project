@@ -2,9 +2,12 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { cn } from "~/lib/utils"
+import { dark } from '@clerk/themes';
 
+import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from "~/trpc/react";
 import { ThemeProvider } from "~/components/theme/theme-provider"
+import { Header } from "~/components/partials/Header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,18 +27,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn("min-h-screen bg-background font-sans antialiased", inter.variable)}>
-        <TRPCReactProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </TRPCReactProvider>
-      </body>
+      <ClerkProvider appearance={{ baseTheme: dark }}>
+        <body className={cn("min-h-screen bg-background font-sans antialiased", inter.variable)}>
+          <TRPCReactProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+
+              {children}
+            </ThemeProvider>
+          </TRPCReactProvider>
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
