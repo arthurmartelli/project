@@ -3,7 +3,10 @@
     "WillLuke.nextjs.hasPrompted": true,
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "cSpell.words": [
+        "hookform",
+        "lucide",
         "nextjs",
+        "Repáralo",
         "tailwindcss",
         "trpc",
         "TRPC"

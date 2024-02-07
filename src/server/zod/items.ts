@@ -4,7 +4,7 @@ import { CompleteReceipt, RelatedReceiptModel } from "./index"
 
 export const ItemsModel = z.object({
   id: z.string(),
-  receiptId: z.number().int().nullish(),
+  receiptId: z.number().int(),
   category: z.nativeEnum(ItemCategory),
   quantity: z.number().int(),
   description: z.string(),
@@ -14,7 +14,7 @@ export const ItemsModel = z.object({
 })
 
 export interface CompleteItems extends z.infer<typeof ItemsModel> {
-  receipt?: CompleteReceipt | null
+  receipt: CompleteReceipt
 }
 
 /**
@@ -23,5 +23,5 @@ export interface CompleteItems extends z.infer<typeof ItemsModel> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedItemsModel: z.ZodSchema<CompleteItems> = z.lazy(() => ItemsModel.extend({
-  receipt: RelatedReceiptModel.nullish(),
+  receipt: RelatedReceiptModel,
 }))

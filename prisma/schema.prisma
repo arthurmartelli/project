@@ -37,33 +37,19 @@ enum DiscountsType {
     PERCENT
 }
 
-model Address {
-    id String @id @default(cuid())
-
-    line1   String  @db.VarChar(255)
-    line2   String?
-    city    String  @db.VarChar(255)
-    state   String  @db.VarChar(255)
-    country String  @db.VarChar(255)
-    zip     String  @db.VarChar(255)
-
-    client   Client @relation(fields: [clientId], references: [id])
-    clientId String @unique
-
-    @@index([line1])
-    @@index([city])
-    @@index([state])
-    @@index([country])
-    @@index([zip])
-}
-
 model Client {
     id String @id @default(cuid())
 
-    name    String
-    email   String
-    phone   Int
-    Address Address?
+    name  String
+    email String @unique
+    phone Int    @unique
+
+    address_line1   String  @db.VarChar(255)
+    address_line2   String?
+    address_city    String  @db.VarChar(255)
+    address_state   String  @db.VarChar(255)
+    address_country String  @db.VarChar(255)
+    address_zip     String  @db.VarChar(255)
 
     receipts Receipt[]
 
@@ -73,6 +59,8 @@ model Client {
     @@index([name])
     @@index([phone])
     @@index([email])
+    @@index([address_line1])
+    @@index([address_zip])
 }
 
 model Receipt {
@@ -106,8 +94,8 @@ enum ItemCategory {
 model Items {
     id String @id @default(cuid())
 
-    receipt   Receipt? @relation(fields: [receiptId], references: [id])
-    receiptId Int?
+    receipt   Receipt @relation(fields: [receiptId], references: [id])
+    receiptId Int
 
     category    ItemCategory
     quantity    Int

@@ -35,17 +35,7 @@ export const env = createEnv({
     VERCEL_GIT_REPO_SLUG: z.string().optional(),
     VERCEL_URL: z.string().optional(),
 
-    // @ts-expect-error this is how it should be named by clerk docs
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
     CLERK_SECRET_KEY: z.string(),
-    // @ts-expect-error this is how it should be named by clerk docs
-    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
-    // @ts-expect-error this is how it should be named by clerk docs
-    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
-    // @ts-expect-error this is how it should be named by clerk docs
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string(),
-    // @ts-expect-error this is how it should be named by clerk docs
-    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string(),
   },
 
   /**
@@ -54,7 +44,11 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string(),
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string(),
   },
 
   /**
@@ -88,7 +82,6 @@ export const env = createEnv({
     VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG,
     VERCEL_URL: process.env.VERCEL_URL,
 
-    // @ts-expect-error this is how it should be named by clerk docs
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
