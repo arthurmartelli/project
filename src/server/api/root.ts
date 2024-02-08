@@ -1,4 +1,6 @@
 import { clientsRouter } from "~/server/api/routers/client";
+import { receiptRouter } from "~/server/api/routers/receipt";
+
 import { createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -8,6 +10,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   clients: clientsRouter,
+  receipt: receiptRouter,
 });
 
 // export type definition of API

@@ -7,7 +7,7 @@ import { dark } from '@clerk/themes';
 import { ClerkProvider } from '@clerk/nextjs'
 import { TRPCReactProvider } from "~/trpc/react";
 import { ThemeProvider } from "~/components/theme/theme-provider"
-import { Header } from "~/components/partials/Header";
+import { Header } from "~/components/partials/header";
 
 const inter = Inter({
   subsets: ["latin"],

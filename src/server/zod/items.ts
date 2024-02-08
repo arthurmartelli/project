@@ -1,20 +1,19 @@
 import * as z from "zod"
-import { ItemCategory, DiscountsType } from "@prisma/client"
 import { CompleteReceipt, RelatedReceiptModel } from "./index"
 
 export const ItemsModel = z.object({
   id: z.string(),
-  receiptId: z.number().int(),
-  category: z.nativeEnum(ItemCategory),
+  receiptId: z.number().int().nullish(),
+  category: z.string(),
   quantity: z.number().int(),
   description: z.string(),
   cost: z.number(),
   discount: z.number(),
-  discountType: z.nativeEnum(DiscountsType),
+  discountType: z.string(),
 })
 
 export interface CompleteItems extends z.infer<typeof ItemsModel> {
-  receipt: CompleteReceipt
+  receipt?: CompleteReceipt | null
 }
 
 /**
@@ -23,5 +22,5 @@ export interface CompleteItems extends z.infer<typeof ItemsModel> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedItemsModel: z.ZodSchema<CompleteItems> = z.lazy(() => ItemsModel.extend({
-  receipt: RelatedReceiptModel,
+  receipt: RelatedReceiptModel.nullish(),
 }))

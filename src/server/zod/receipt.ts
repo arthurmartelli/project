@@ -1,13 +1,13 @@
 import * as z from "zod"
-import { DiscountsType } from "@prisma/client"
 import { CompleteClient, RelatedClientModel, CompleteItems, RelatedItemsModel } from "./index"
 
 export const ReceiptModel = z.object({
   id: z.number().int(),
   clientId: z.string(),
-  notes: z.string(),
+  clientEmail: z.string(),
+  notes: z.string().nullish(),
   discount: z.number(),
-  discount_type: z.nativeEnum(DiscountsType),
+  discount_type: z.string(),
   taxes: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),

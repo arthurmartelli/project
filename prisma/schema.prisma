@@ -27,35 +27,38 @@ generator zod {
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+    // provider  = "postgresql"
+    // url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+    provider = "sqlite"
+    url      = "file:./dev.db"
 }
 
-enum DiscountsType {
-    FIXED_AMOUNTS
-    PERCENT
-}
+// enum DiscountsType {
+//     FIXED_AMOUNTS
+//     PERCENT
+// }
 
 model Client {
     id String @id @default(cuid())
 
     name  String
     email String @unique
-    phone Int    @unique
+    phone Int
 
-    address_line1   String  @db.VarChar(255)
+    address_line1   String // @db.VarChar(255)
     address_line2   String?
-    address_city    String  @db.VarChar(255)
-    address_state   String  @db.VarChar(255)
-    address_country String  @db.VarChar(255)
-    address_zip     String  @db.VarChar(255)
+    address_city    String // @db.VarChar(255)
+    address_state   String // @db.VarChar(255)
+    address_country String // @db.VarChar(255)
+    address_zip     String // @db.VarChar(255)
 
     receipts Receipt[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
+    @@unique([id, email])
     @@index([name])
     @@index([phone])
     @@index([email])
@@ -66,14 +69,15 @@ model Client {
 model Receipt {
     id Int @id @default(autoincrement())
 
-    clientId String
-    client   Client @relation(fields: [clientId], references: [id])
+    clientId    String
+    clientEmail String
+    client      Client @relation(fields: [clientId, clientEmail], references: [id, email])
 
     items Items[]
 
-    notes         String        @db.VarChar(255)
+    notes         String? // @db.VarChar(255)
     discount      Float
-    discount_type DiscountsType
+    discount_type String
     taxes         Float
 
     createdAt DateTime @default(now())
@@ -83,25 +87,25 @@ model Receipt {
     @@index([discount])
 }
 
-enum ItemCategory {
-    ELECTRICIAN
-    PAINTER
-    PLUMBER
-    ROOFING
-    LANDSCAPING
-}
+// enum ItemCategory {
+//     ELECTRICIAN
+//     PAINTER
+//     PLUMBER
+//     ROOFING
+//     LANDSCAPING
+// }
 
 model Items {
     id String @id @default(cuid())
 
-    receipt   Receipt @relation(fields: [receiptId], references: [id])
-    receiptId Int
+    receipt   Receipt? @relation(fields: [receiptId], references: [id])
+    receiptId Int?
 
-    category    ItemCategory
+    category    String
     quantity    Int
-    description String       @db.VarChar(255)
+    description String // @db.VarChar(255)
 
     cost         Float
     discount     Float
-    discountType DiscountsType
+    discountType String
 }
