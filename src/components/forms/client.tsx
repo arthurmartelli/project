@@ -41,7 +41,6 @@ export function CreateClientForm(props: Props) {
     })
 
     function onSubmit(values: Schema) {
-        console.log(values)
         mutate(values)
     }
 

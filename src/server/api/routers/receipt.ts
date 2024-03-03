@@ -1,7 +1,6 @@
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { ReceiptModel } from "~/server/zod";
 
-
 export const receiptRouter = createTRPCRouter({
     create: publicProcedure
         .input(ReceiptModel.omit({
@@ -28,16 +27,12 @@ export const receiptRouter = createTRPCRouter({
             })
         }),
 
-    getAll: publicProcedure
-        .query(({ ctx }) => {
-            return ctx.db.receipt.findMany();
-        }),
-
-    getFromClientEmail: publicProcedure
-        .input(ReceiptModel.pick({ clientEmail: true }))
+    get: publicProcedure
+        .input(ReceiptModel.partial())
         .query(({ ctx, input }) => {
+
             return ctx.db.receipt.findMany({
-                where: { clientEmail: input.clientEmail },
+                where: { ...input },
             });
         }),
 });

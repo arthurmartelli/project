@@ -34,9 +34,7 @@ export function CreateReceiptForm(props: Props) {
     type Schema = Parameters<typeof mutate>[0]
 
     const formSchema: z.ZodType<Schema> = z.object({
-        clientId: z.string(),
         clientEmail: z.string(),
-        clientPhone: z.number(),
         notes: z.string(),
         discount: z.number().min(0),
         discount_type: z.enum(["FIXED_AMOUNTS", "PERCENT"]),
@@ -52,9 +50,12 @@ export function CreateReceiptForm(props: Props) {
         }
     })
 
-    const clients = api.clients.getAll.useQuery()
+    const clients = api.clients.get.useQuery({})
 
-    function onSubmit(values: Schema) { mutate(values) }
+    function onSubmit(values: Schema) {
+        console.log(values)
+        mutate(values)
+    }
 
     if (clients.data == undefined) return <div>Loading...</div>
 
