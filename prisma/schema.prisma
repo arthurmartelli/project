@@ -46,12 +46,12 @@ model Client {
     email String @unique
     phone Int
 
-    address_line1   String // @db.VarChar(255)
-    address_line2   String?
-    address_city    String // @db.VarChar(255)
-    address_state   String // @db.VarChar(255)
-    address_country String // @db.VarChar(255)
-    address_zip     String // @db.VarChar(255)
+    addressLine1   String // @db.VarChar(255)
+    addressLine2   String?
+    addressCity    String // @db.VarChar(255)
+    addressState   String // @db.VarChar(255)
+    addressCountry String // @db.VarChar(255)
+    addressZip     String // @db.VarChar(255)
 
     receipts Receipt[]
 
@@ -62,8 +62,8 @@ model Client {
     @@index([name])
     @@index([phone])
     @@index([email])
-    @@index([address_line1])
-    @@index([address_zip])
+    @@index([addressLine1])
+    @@index([addressZip])
 }
 
 model Receipt {
@@ -86,14 +86,6 @@ model Receipt {
     @@index([notes])
     @@index([discount])
 }
-
-// enum ItemCategory {
-//     ELECTRICIAN
-//     PAINTER
-//     PLUMBER
-//     ROOFING
-//     LANDSCAPING
-// }
 
 model Items {
     id String @id @default(cuid())
