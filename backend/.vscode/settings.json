@@ -1,0 +1,16 @@
+{
+    "cSpell.words": [
+        "actix",
+        "chrono",
+        "dotenv",
+        "mysql",
+        "sqlx",
+        "uuid",
+        "Uuid"
+    ],
+    "rust-analyzer.linkedProjects": [
+        ".\\Cargo.toml",
+        ".\\Cargo.toml"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
+}
