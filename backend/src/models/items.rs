@@ -1,6 +1,5 @@
 use chrono::DateTime;
 use chrono::Utc;
-use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use uuid::Uuid;
@@ -10,7 +9,7 @@ pub struct Item {
     pub id: String,
     pub description: String,
     pub quantity: u16,
-    pub price: Decimal,
+    pub price: u32,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
 }
@@ -22,7 +21,7 @@ impl Item {
             Uuid::parse_str(self.id.as_str()).is_ok(),
             self.description.trim().is_empty(),
             self.quantity <= 0,
-            self.price <= Decimal::ZERO,
+            self.price <= 0,
         ];
 
         // Check if any validation condition is true

@@ -1,32 +1,51 @@
 use crate::{models::Receipt, traits::Crud};
-use sqlx::MySqlPool;
+use sqlx::{mysql::MySqlQueryResult, Error, MySqlPool};
 
 impl<'a> Crud<'a, Receipt> for Receipt {
-    async fn create(&self, pool: &'a MySqlPool) -> Result<(), sqlx::Error> {
-        todo!()
-    }
-
-    async fn read_all(pool: &'a MySqlPool) -> Result<Vec<Self>, sqlx::Error> {
-        todo!()
-    }
-
-    async fn update(&self, pool: &'a MySqlPool) -> Result<Self, sqlx::Error> {
-        todo!()
-    }
-
-    async fn delete(&self, pool: &'a MySqlPool) -> Result<(), sqlx::Error> {
-        todo!()
-    }
-
     fn id(&self) -> String {
-        todo!()
-    }
-
-    async fn read(&self, pool: &'a MySqlPool) -> Result<Receipt, sqlx::Error> {
-        todo!()
+        self.id.clone()
     }
 
     fn table() -> &'static str {
-        todo!()
+        "receipts"
+    }
+
+    async fn create(&self, pool: &'a MySqlPool) -> Result<(), Error> {
+        if let Err(e) = self.validate() {
+            return Err(Error::Configuration(e.into()));
+        }
+
+        sqlx::query!(
+            r#"
+            INSERT INTO receipts (id, total_amount, client_id)
+            VALUES (?, ?, ?)
+            "#,
+            self.id,
+            self.total_amount,
+            self.client_id,
+        )
+        .execute(pool)
+        .await?;
+
+        Ok(())
+    }
+
+    async fn update(&self, pool: &'a MySqlPool) -> Result<MySqlQueryResult, Error> {
+        if let Err(e) = self.validate() {
+            return Err(Error::Configuration(e.into()));
+        }
+
+        let result = sqlx::query!(
+            r#"
+            UPDATE receipts SET total_amount = ?, client_id = ? WHERE id = ?
+            "#,
+            self.total_amount,
+            self.client_id,
+            self.id
+        )
+        .execute(pool)
+        .await?;
+
+        Ok(result)
     }
 }

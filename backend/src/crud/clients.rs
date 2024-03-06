@@ -1,8 +1,20 @@
 use crate::{models::Client, traits::Crud};
-use sqlx::{Error, FromRow, MySqlPool};
+use sqlx::{mysql::MySqlQueryResult, Error, MySqlPool};
 
 impl<'a> Crud<'a, Client> for Client {
+    fn id(&self) -> String {
+        self.id.clone()
+    }
+
+    fn table() -> &'static str {
+        "clients"
+    }
+
     async fn create(&self, pool: &'a MySqlPool) -> Result<(), Error> {
+        if let Err(e) = self.validate() {
+            return Err(Error::Configuration(e.into()));
+        }
+
         sqlx::query!(
             r#"
             INSERT INTO clients (id, gov_id, name, phone, email, address)
@@ -21,20 +33,11 @@ impl<'a> Crud<'a, Client> for Client {
         Ok(())
     }
 
-    async fn read_all(pool: &'a MySqlPool) -> Result<Vec<Self>, Error> {
-        let clients = sqlx::query_as!(
-            Client,
-            r#"
-            SELECT * FROM clients
-            "#
-        )
-        .fetch_all(pool)
-        .await?;
+    async fn update(&self, pool: &'a MySqlPool) -> Result<MySqlQueryResult, Error> {
+        if let Err(e) = self.validate() {
+            return Err(Error::Configuration(e.into()));
+        }
 
-        Ok(clients)
-    }
-
-    async fn update(&self, pool: &'a MySqlPool) -> Result<Self, Error> {
         let client = sqlx::query_as!(
             Client,
             r#"
@@ -48,34 +51,9 @@ impl<'a> Crud<'a, Client> for Client {
             self.address,
             self.id
         )
-        .fetch_one(pool)
-        .await?;
-
-        Client::from_row(&client)
-    }
-
-    async fn delete(&self, pool: &'a MySqlPool) -> Result<(), Error> {
-        sqlx::query!(
-            r#"
-            DELETE FROM clients WHERE id = ?
-            "#,
-            self.id
-        )
         .execute(pool)
-        .await?;
+        .await;
 
-        Ok(())
-    }
-
-    fn id(&self) -> String {
-        todo!()
-    }
-
-    fn table() -> &'static str {
-        todo!()
-    }
-
-    async fn read(&self, pool: &'a MySqlPool) -> Result<Client, Error> {
-        todo!()
+        client
     }
 }

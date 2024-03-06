@@ -2,7 +2,9 @@ use actix_web::{get, web, HttpResponse, Responder};
 pub mod clients;
 
 pub fn config(conf: &mut web::ServiceConfig) {
-    let scope = web::scope("/api").service(health);
+    let scope = web::scope("/api")
+        .service(health)
+        .configure(clients::config);
 
     conf.service(scope);
 }

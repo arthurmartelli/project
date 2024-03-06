@@ -1,32 +1,51 @@
 use crate::{models::Item, traits::Crud};
-use sqlx::MySqlPool;
+use sqlx::{mysql::MySqlQueryResult, Error, MySqlPool};
 
 impl<'a> Crud<'a, Item> for Item {
-    async fn create(&self, pool: &'a MySqlPool) -> Result<(), sqlx::Error> {
-        todo!()
-    }
-
-    async fn read_all(pool: &'a MySqlPool) -> Result<Vec<Self>, sqlx::Error> {
-        todo!()
-    }
-
-    async fn update(&self, pool: &'a MySqlPool) -> Result<Self, sqlx::Error> {
-        todo!()
-    }
-
-    async fn delete(&self, pool: &'a MySqlPool) -> Result<(), sqlx::Error> {
-        todo!()
-    }
-
     fn id(&self) -> String {
-        todo!()
-    }
-
-    async fn read(&self, pool: &'a MySqlPool) -> Result<Item, sqlx::Error> {
-        todo!()
+        self.id.clone()
     }
 
     fn table() -> &'static str {
-        todo!()
+        "items"
+    }
+
+    async fn create(&self, pool: &'a MySqlPool) -> Result<(), Error> {
+        if let Err(e) = self.validate() {
+            return Err(Error::Configuration(e.into()));
+        }
+
+        sqlx::query!(
+            r#"
+            INSERT INTO items (id, name, price)
+            VALUES (?, ?, ?)
+            "#,
+            self.id,
+            self.description,
+            self.price,
+        )
+        .execute(pool)
+        .await?;
+
+        Ok(())
+    }
+
+    async fn update(&self, pool: &'a MySqlPool) -> Result<MySqlQueryResult, Error> {
+        if let Err(e) = self.validate() {
+            return Err(Error::Configuration(e.into()));
+        }
+
+        let row = sqlx::query!(
+            r#"
+            UPDATE items SET name = ?, price = ? WHERE id = ?
+            "#,
+            self.description,
+            self.price,
+            self.id
+        )
+        .execute(pool)
+        .await;
+
+        row
     }
 }
