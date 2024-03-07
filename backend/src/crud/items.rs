@@ -17,7 +17,7 @@ impl<'a> Crud<'a, Item> for Item {
 
         sqlx::query!(
             r#"
-            INSERT INTO items (id, name, price)
+            INSERT INTO items (id, description, price)
             VALUES (?, ?, ?)
             "#,
             self.id,
@@ -37,7 +37,7 @@ impl<'a> Crud<'a, Item> for Item {
 
         let row = sqlx::query!(
             r#"
-            UPDATE items SET name = ?, price = ? WHERE id = ?
+            UPDATE items SET description = ?, price = ? WHERE id = ?
             "#,
             self.description,
             self.price,
