@@ -35,7 +35,7 @@ impl<'a> Crud<'a, Item> for Item {
             return Err(Error::Configuration(e.into()));
         }
 
-        let row = sqlx::query!(
+        sqlx::query!(
             r#"
             UPDATE items SET description = ?, price = ? WHERE id = ?
             "#,
@@ -44,8 +44,6 @@ impl<'a> Crud<'a, Item> for Item {
             self.id
         )
         .execute(pool)
-        .await;
-
-        row
+        .await
     }
 }
