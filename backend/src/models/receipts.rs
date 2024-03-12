@@ -4,6 +4,13 @@ use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use uuid::Uuid;
 
+use crate::traits::Model;
+
+#[derive(Debug, Serialize, Deserialize, FromRow)]
+pub struct BaseReceipt {
+    pub total_amount: u32,
+    pub client_id: String,
+}
 
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct Receipt {
@@ -14,9 +21,26 @@ pub struct Receipt {
     pub updated_at: Option<DateTime<Utc>>,
 }
 
+impl Model<BaseReceipt> for Receipt {
+    fn id(&self) -> String {
+        self.id.clone()
+    }
 
-impl Receipt {
-    pub fn validate(&self) -> Result<(), String> {
+    fn model() -> &'static str {
+        "receipts"
+    }
+
+    fn new(data: BaseReceipt) -> Self {
+        Receipt {
+            id: uuid::Uuid::new_v4().to_string(),
+            total_amount: data.total_amount,
+            client_id: data.client_id,
+            created_at: None,
+            updated_at: None,
+        }
+    }
+
+    fn validate(&self) -> Result<(), String> {
         let validations = vec![
             Uuid::parse_str(self.id.as_str()).is_ok(),
             Uuid::parse_str(self.client_id.as_str()).is_ok(),

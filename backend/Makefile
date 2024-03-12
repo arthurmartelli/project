@@ -10,6 +10,9 @@ migrate-up:
 migrate-down:
 	sqlx migrate revert
 
+db-reset:
+	sqlx database reset -y
+
 server:
 	cargo watch -q -c -w src/ -x run
 

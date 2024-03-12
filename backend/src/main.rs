@@ -1,12 +1,13 @@
-mod crud;
 mod handlers;
 mod models;
 mod traits;
 
 use actix_cors::Cors;
-use actix_web::http::header::HeaderName;
-use actix_web::middleware::Logger;
-use actix_web::{http::header, web, App, HttpServer};
+use actix_web::{
+    http::header::{self, HeaderName},
+    middleware::Logger,
+    web, App, HttpServer,
+};
 use dotenv::dotenv;
 use sqlx::mysql::{MySqlPool, MySqlPoolOptions};
 

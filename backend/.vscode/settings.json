@@ -5,6 +5,7 @@
         "dotenv",
         "mysql",
         "sqlx",
+        "superstruct",
         "uuid",
         "Uuid"
     ],

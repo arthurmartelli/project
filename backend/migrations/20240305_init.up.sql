@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS clients (
 CREATE TABLE IF NOT EXISTS receipts (
     id CHAR(36) PRIMARY KEY NOT NULL,
     -- Receipt fields (add as needed)
-    total_amount DECIMAL(10, 2) NOT NULL,
+    total_amount INT UNSIGNED NOT NULL,
     -- N:1 relationship with clients
     client_id CHAR(36) NOT NULL,
     FOREIGN KEY (client_id) REFERENCES clients(id),

@@ -1,0 +1,313 @@
+{
+  "info": {
+    "_postman_id": "d2b3f207-8ebd-4c46-bb3b-4a49730f758f",
+    "name": "API Testing Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Client",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "gov_id",
+              "value": "123456789",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "value": "John Doe",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "123-456-7890",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "john.doe@example.com",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "123 Main St, City, Country",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/clients",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Client",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "gov_id",
+              "value": "987654321",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "value": "Jane Smith",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "987-654-3210",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "jane.smith@example.com",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "456 Elm St, City, Country",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/clients/{client_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients", "{client_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Client",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/clients/{client_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients", "{client_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Clients",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/clients",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Client by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/clients/{client_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients", "{client_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Client by Gov ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/clients/gov-id/{gov_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients", "gov-id", "{gov_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Client Receipts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/clients/{client_id}/receipts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["clients", "{client_id}", "receipts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Receipt",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "total_amount",
+              "value": "100",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "e93769a2-f826-4566-9c3d-d11a9c7ecb1a",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/receipts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Receipt",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "total_amount",
+              "value": "200",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "e93769a2-f826-4566-9c3d-d11a9c7ecb1a",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/receipts/{receipt_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts", "{receipt_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Receipt",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/receipts/{receipt_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts", "{receipt_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Receipts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/receipts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Receipt by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/receipts/{receipt_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts", "{receipt_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Receipts by Client",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/receipts/client/{client_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts", "client", "{client_id}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Items to Receipt",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n    {\n        \"description\": \"Item 1\",\n        \"quantity\": 2,\n        \"price\": 50\n    },\n    {\n        \"description\": \"Item 2\",\n        \"quantity\": 1,\n        \"price\": 30\n    }\n]"
+        },
+        "url": {
+          "raw": "http://localhost:8080/receipts/add-items",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["receipts", "add-items"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
