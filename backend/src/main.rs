@@ -31,7 +31,7 @@ async fn main() -> std::io::Result<()> {
         .await
     {
         Ok(pool) => {
-            println!("✅Connection to the database is successful!");
+            println!("✅ Connection to the database is successful!");
             pool
         }
         Err(err) => {
@@ -40,13 +40,13 @@ async fn main() -> std::io::Result<()> {
         }
     };
 
-    println!("🚀 Server started successfully");
-
     const IPV4: std::net::Ipv4Addr = std::net::Ipv4Addr::new(127, 0, 0, 1);
     const PORT: u16 = 8000;
     const ALLOWED_METHODS: [&str; 4] = ["GET", "POST", "PATCH", "DELETE"];
     const ALLOWED_HEADERS: [HeaderName; 3] =
         [header::CONTENT_TYPE, header::AUTHORIZATION, header::ACCEPT];
+
+    println!("🚀 Server started successfully at http://{}:{}", IPV4, PORT);
 
     HttpServer::new(move || {
         let cors = Cors::default()

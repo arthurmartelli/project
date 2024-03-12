@@ -41,10 +41,10 @@
           ]
         },
         "url": {
-          "raw": "http://localhost:8080/clients",
+          "raw": "http://localhost:8000/clients",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients"]
         }
       },
@@ -86,10 +86,10 @@
           ]
         },
         "url": {
-          "raw": "http://localhost:8080/clients/{client_id}",
+          "raw": "http://localhost:8000/clients/{client_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients", "{client_id}"]
         }
       },
@@ -101,10 +101,10 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/clients/{client_id}",
+          "raw": "http://localhost:8000/clients/{client_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients", "{client_id}"]
         }
       },
@@ -116,10 +116,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/clients",
+          "raw": "http://localhost:8000/clients",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients"]
         }
       },
@@ -131,10 +131,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/clients/{client_id}",
+          "raw": "http://localhost:8000/clients/{client_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients", "{client_id}"]
         }
       },
@@ -146,10 +146,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/clients/gov-id/{gov_id}",
+          "raw": "http://localhost:8000/clients/gov-id/{gov_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients", "gov-id", "{gov_id}"]
         }
       },
@@ -161,10 +161,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/clients/{client_id}/receipts",
+          "raw": "http://localhost:8000/clients/{client_id}/receipts",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["clients", "{client_id}", "receipts"]
         }
       },
@@ -191,10 +191,10 @@
           ]
         },
         "url": {
-          "raw": "http://localhost:8080/receipts",
+          "raw": "http://localhost:8000/receipts",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts"]
         }
       },
@@ -221,10 +221,10 @@
           ]
         },
         "url": {
-          "raw": "http://localhost:8080/receipts/{receipt_id}",
+          "raw": "http://localhost:8000/receipts/{receipt_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts", "{receipt_id}"]
         }
       },
@@ -236,10 +236,10 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/receipts/{receipt_id}",
+          "raw": "http://localhost:8000/receipts/{receipt_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts", "{receipt_id}"]
         }
       },
@@ -251,10 +251,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/receipts",
+          "raw": "http://localhost:8000/receipts",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts"]
         }
       },
@@ -266,10 +266,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/receipts/{receipt_id}",
+          "raw": "http://localhost:8000/receipts/{receipt_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts", "{receipt_id}"]
         }
       },
@@ -281,10 +281,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/receipts/client/{client_id}",
+          "raw": "http://localhost:8000/receipts/client/{client_id}",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts", "client", "{client_id}"]
         }
       },
@@ -300,10 +300,10 @@
           "raw": "[\n    {\n        \"description\": \"Item 1\",\n        \"quantity\": 2,\n        \"price\": 50\n    },\n    {\n        \"description\": \"Item 2\",\n        \"quantity\": 1,\n        \"price\": 30\n    }\n]"
         },
         "url": {
-          "raw": "http://localhost:8080/receipts/add-items",
+          "raw": "http://localhost:8000/receipts/add-items",
           "protocol": "http",
           "host": ["localhost"],
-          "port": "8080",
+          "port": "8000",
           "path": ["receipts", "add-items"]
         }
       },

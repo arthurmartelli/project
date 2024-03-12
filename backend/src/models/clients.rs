@@ -51,12 +51,12 @@ impl Model<BaseClient> for Client {
     fn validate(&self) -> Result<(), String> {
         // Define validation conditions
         let validations = vec![
-            Uuid::parse_str(self.id.as_str()).is_ok(),
-            self.gov_id.trim().is_empty(),
-            self.name.trim().is_empty(),
-            self.email
+            !Uuid::parse_str(self.id.as_str()).is_ok(), // Check if ID is not a valid UUID
+            self.gov_id.trim().is_empty(),              // Check if gov_id is empty
+            self.name.trim().is_empty(),                // Check if name is empty
+            self.email // Check if email is present and contains '@'
                 .as_ref()
-                .map_or(false, |email| !email.contains('@')),
+                .map_or(true, |email| !email.contains('@')),
         ];
 
         // Check if any validation condition is true

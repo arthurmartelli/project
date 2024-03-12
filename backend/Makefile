@@ -16,6 +16,9 @@ db-reset:
 server:
 	cargo watch -q -c -w src/ -x run
 
+postman:
+	postman collection run .\test\post_man.json
+
 install:
 	cargo add actix-web
 	cargo add actix-cors

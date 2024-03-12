@@ -3,6 +3,7 @@
         "actix",
         "chrono",
         "dotenv",
+        "formdata",
         "mysql",
         "sqlx",
         "superstruct",
