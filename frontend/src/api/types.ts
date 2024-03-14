@@ -1,23 +1,23 @@
-export interface BaseClient {
+export type BaseClient = {
     gov_id: string;
     name: string;
-    phone?: string;
-    email?: string;
-    address?: string;
+    phone?: string | undefined;
+    email?: string | undefined;
+    address?: string | undefined;
 }
 
-export interface Client extends BaseClient {
+export type Client = BaseClient & {
     id: string;
 }
 
-export interface Receipt {
+export type Receipt = {
     id: string;
     clientId: string;
     totalAmount: number;
     items: ReceiptItem[];
 }
 
-export interface ReceiptItem {
+export type ReceiptItem = {
     id: string;
     name: string;
     quantity: number;
