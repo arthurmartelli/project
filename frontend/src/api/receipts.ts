@@ -140,7 +140,6 @@ const getItemsFromReceipt = async (receiptId: string): Promise<ReceiptItem[] | n
     }
 };
 
-
 export default {
     createReceipt,
     updateReceipt,
