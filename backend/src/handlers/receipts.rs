@@ -7,7 +7,7 @@ use crate::{
 };
 
 #[post("")]
-async fn create_receipt(pool: WebAppState, receipt_data: web::Form<BaseReceipt>) -> impl Responder {
+async fn create_receipt(pool: WebAppState, receipt_data: web::Json<BaseReceipt>) -> impl Responder {
     // Extract receipt data from the request
     let receipt_data = receipt_data.into_inner();
 
@@ -38,7 +38,7 @@ async fn create_receipt(pool: WebAppState, receipt_data: web::Form<BaseReceipt>)
 #[put("/{id}")]
 async fn update_receipt(
     pool: WebAppState,
-    receipt_data: web::Form<BaseReceipt>,
+    receipt_data: web::Json<BaseReceipt>,
     id: web::Path<String>,
 ) -> impl Responder {
     // Extract receipt data from the request
@@ -168,6 +168,25 @@ async fn add_items(pool: WebAppState, items_data: web::Json<Vec<BaseItem>>) -> i
     HttpResponse::Created().body(format!("Successfully added {} items", success_count))
 }
 
+#[get("/{receipt_id}/items")]
+async fn get_receipt_items(pool: WebAppState, receipt_id: web::Path<String>) -> impl Responder {
+    let receipt_id = receipt_id.into_inner();
+
+    // Fetch items associated with the given receipt ID from the database
+    let items = sqlx::query_as!(
+        Item,
+        "SELECT items.* FROM items INNER JOIN receipts_items ON items.id = receipts_items.item_id WHERE receipts_items.receipt_id = ?",
+        receipt_id
+    )
+    .fetch_all(&pool.db)
+    .await;
+
+    match items {
+        Ok(items) => HttpResponse::Ok().json(items),
+        Err(_) => HttpResponse::InternalServerError().body("Error retrieving items"),
+    }
+}
+
 // Configure receipts API routes
 pub fn config(conf: &mut web::ServiceConfig) {
     let scope = web::scope("/receipts")
@@ -177,7 +196,8 @@ pub fn config(conf: &mut web::ServiceConfig) {
         .service(get_all_receipts)
         .service(get_receipt_by_id)
         .service(get_receipts_by_client)
-        .service(add_items);
+        .service(add_items)
+        .service(get_receipt_items);
 
     conf.service(scope);
 }

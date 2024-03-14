@@ -1,29 +1,29 @@
-use actix_web::{get, web, HttpResponse, Responder};
+use actix_web::{get, web};
 use serde::Deserialize;
 
 use crate::AppState;
 mod clients;
 mod receipts;
 
+use maud::{html, Markup};
+
 type WebAppState = web::Data<AppState>;
 
 pub fn config(conf: &mut web::ServiceConfig) {
-    let scope = web::scope("")
+    let api_handler = web::scope("/api")
         .service(status)
         .configure(clients::config)
         .configure(receipts::config);
 
-    conf.service(scope);
+    conf.service(api_handler);
 }
 
 #[get("/status")]
-async fn status() -> impl Responder {
-    const MESSAGE: &str = "Status OK";
-
-    HttpResponse::Ok().json(serde_json::json!({
-        "status": "success",
-        "message": MESSAGE
-    }))
+async fn status() -> Markup {
+    html! {
+        h1 { "Hello! The server is working"}
+        p { "Nice to meet you!" }
+    }
 }
 
 #[derive(Deserialize)]

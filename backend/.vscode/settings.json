@@ -4,6 +4,8 @@
         "chrono",
         "dotenv",
         "formdata",
+        "htmx",
+        "maud",
         "mysql",
         "sqlx",
         "superstruct",

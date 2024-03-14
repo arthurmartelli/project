@@ -48,41 +48,35 @@ The server will start running at `http://localhost:8080`.
 ### Clients API
 
 1. **Create Client**:
-
    - Method: POST
    - Path: `/clients`
    - Description: Create a new client with the provided details.
-
+   - Request Body: Expects a JSON object containing the following fields:
+     - `gov_id (string)`: The government ID of the client (unique identifier).
+     - `name (string)`: The name of the client.
+     - `phone (string, optional)`: The phone number of the client.
+     - `email (string, optional)`: The email address of the client.
+     - `address (string, optional)`: The address of the client.
 2. **Update Client**:
-
    - Method: PUT
    - Path: `/clients/{id}`
    - Description: Update an existing client with the provided ID.
-
 3. **Delete Client**:
-
    - Method: DELETE
    - Path: `/clients/{id}`
    - Description: Delete the client with the provided ID.
-
 4. **Get All Clients**:
-
    - Method: GET
    - Path: `/clients`
    - Description: Retrieve a list of all clients.
-
 5. **Get Client by ID**:
-
    - Method: GET
    - Path: `/clients/{id}`
    - Description: Retrieve a specific client by its ID.
-
 6. **Get Client by Government ID**:
-
    - Method: GET
    - Path: `/clients/gov-id/{gov_id}`
    - Description: Retrieve a specific client by its government ID.
-
 7. **Get Client Receipts**:
    - Method: GET
    - Path: `/clients/{client_id}/receipts`
@@ -91,45 +85,44 @@ The server will start running at `http://localhost:8080`.
 ### Receipts API
 
 1. **Create Receipt**:
-
    - Method: POST
-   - Path: `/receipts`
+   - Path: /receipts
    - Description: Create a new receipt with the provided details.
-
+   - Request Body: Expects a JSON object containing the following fields:
+     - `total_amount (integer)`: The total amount of the receipt.
+     - `client_id (string)`: The ID of the client associated with the receipt.
 2. **Update Receipt**:
-
    - Method: PUT
    - Path: `/receipts/{id}`
    - Description: Update an existing receipt with the provided ID.
-
 3. **Delete Receipt**:
-
    - Method: DELETE
    - Path: `/receipts/{id}`
    - Description: Delete the receipt with the provided ID.
-
 4. **Get All Receipts**:
-
    - Method: GET
    - Path: `/receipts`
    - Description: Retrieve a list of all receipts.
-
 5. **Get Receipt by ID**:
-
    - Method: GET
    - Path: `/receipts/{id}`
    - Description: Retrieve a specific receipt by its ID.
-
 6. **Get Receipts by Client**:
-
    - Method: GET
    - Path: `/receipts/client/{client_id}`
    - Description: Retrieve all receipts associated with a specific client.
-
 7. **Add Items to Receipt**:
    - Method: POST
-   - Path: `/receipts/add-items`
+   - Path: /receipts/add-items
    - Description: Add multiple items to a receipt. Accepts an array of items in the request body.
+   - Request Body: Expects a JSON array containing objects representing items. Each item object should contain the following fields:
+     - `description (string)`: Description of the item.
+     - `quantity (integer)`: Quantity of the item.
+     - `price (integer)`: Price of the item.
+8. **Get Items from Receipt**:
+   - Method: GET
+   - Path: `/receipts/{receipt_id}/items`
+   - Description: Retrieve all items associated with a specific receipt by its ID.
 
 ## Contributing
 

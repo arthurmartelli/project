@@ -7,7 +7,7 @@ use crate::{
 };
 
 #[post("")]
-async fn create_client(pool: WebAppState, client_data: web::Form<BaseClient>) -> impl Responder {
+async fn create_client(pool: WebAppState, client_data: web::Json<BaseClient>) -> impl Responder {
     let client_data = client_data.into_inner();
 
     let client = Client::new(client_data);
@@ -38,7 +38,7 @@ async fn create_client(pool: WebAppState, client_data: web::Form<BaseClient>) ->
 #[put("/{id}")]
 async fn update_client(
     pool: WebAppState,
-    client_data: web::Form<BaseClient>,
+    client_data: web::Json<BaseClient>,
     id: web::Path<String>,
 ) -> impl Responder {
     let client_data = client_data.into_inner();

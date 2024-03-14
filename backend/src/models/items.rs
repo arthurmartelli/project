@@ -9,7 +9,7 @@ use crate::traits::Model;
 #[derive(Debug, Deserialize)]
 pub struct BaseItem {
     pub description: String,
-    pub quantity: u16,
+    pub quantity: u32,
     pub price: u32,
 }
 
@@ -17,7 +17,7 @@ pub struct BaseItem {
 pub struct Item {
     pub id: String,
     pub description: String,
-    pub quantity: u16,
+    pub quantity: u32,
     pub price: u32,
     pub created_at: Option<DateTime<Utc>>,
     pub updated_at: Option<DateTime<Utc>>,
@@ -45,11 +45,9 @@ impl Model<BaseItem> for Item {
 
     fn validate(&self) -> Result<(), String> {
         // Define validation conditions
-        let validations = vec![
-            Uuid::parse_str(self.id.as_str()).is_ok(),
+        let validations = [
+            Uuid::parse_str(self.id.as_str()).is_err(),
             self.description.trim().is_empty(),
-            self.quantity <= 0,
-            self.price <= 0,
         ];
 
         // Check if any validation condition is true

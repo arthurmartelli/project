@@ -41,10 +41,9 @@ impl Model<BaseReceipt> for Receipt {
     }
 
     fn validate(&self) -> Result<(), String> {
-        let validations = vec![
-            Uuid::parse_str(self.id.as_str()).is_ok(),
+        let validations = [
+            Uuid::parse_str(self.id.as_str()).is_err(),
             Uuid::parse_str(self.client_id.as_str()).is_ok(),
-            self.total_amount <= 0,
             self.created_at.unwrap() > chrono::Utc::now(),
         ];
 

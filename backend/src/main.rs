@@ -2,6 +2,8 @@ mod handlers;
 mod models;
 mod traits;
 
+use std::net::Ipv4Addr;
+
 use actix_cors::Cors;
 use actix_web::{
     http::header::{self, HeaderName},
@@ -25,11 +27,12 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
 
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let pool = match MySqlPoolOptions::new()
+    let connection = MySqlPoolOptions::new()
         .max_connections(10)
         .connect(&database_url)
-        .await
-    {
+        .await;
+
+    let pool = match connection {
         Ok(pool) => {
             println!("✅ Connection to the database is successful!");
             pool
@@ -40,7 +43,7 @@ async fn main() -> std::io::Result<()> {
         }
     };
 
-    const IPV4: std::net::Ipv4Addr = std::net::Ipv4Addr::new(127, 0, 0, 1);
+    const IPV4: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 1);
     const PORT: u16 = 8000;
     const ALLOWED_METHODS: [&str; 4] = ["GET", "POST", "PATCH", "DELETE"];
     const ALLOWED_HEADERS: [HeaderName; 3] =
@@ -62,7 +65,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
     })
     .bind((IPV4, PORT))
-    .expect(format!("IP or port unavailable: {IPV4}:{PORT}").as_str())
+    .unwrap_or_else(|e| panic!("IP or port unavailable: {IPV4}:{PORT}\nError:{e}"))
     .run()
     .await
 }
